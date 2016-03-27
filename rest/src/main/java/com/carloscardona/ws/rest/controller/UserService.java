@@ -11,7 +11,8 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.carloscardona.ws.rest.dao.UserDao;
+import com.carloscardona.ws.rest.dao.UserDAO;
+import com.carloscardona.ws.rest.dao.UserDAOImpl;
 import com.carloscardona.ws.rest.model.User;
 
 /**
@@ -20,38 +21,36 @@ import com.carloscardona.ws.rest.model.User;
  *
  */
 @Path("user")
+@Produces(MediaType.APPLICATION_XML)
 public class UserService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
-	UserDao userDao;
+	private UserDAO userDao;
 
 	public UserService() {
 		super();
-		this.userDao = new UserDao();
+		this.userDao = new UserDAOImpl();
 		LOGGER.info("info service constructor");
 	}
 
 	@GET
 	@Path("/all")
-	@Produces(MediaType.APPLICATION_XML)
 	public List<User> users() {
-		return this.userDao.getAllUsers();
+		return this.userDao.allUsers();
 	}
 
 	@GET
 	@Path("/name/{i}")
-	@Produces(MediaType.APPLICATION_XML)
 	public String userName(@PathParam("i") String i) {
 		String name = i;
-		return "<User>" + "<Name>" + name + "</Name>" + "</User>";
+		return name;
 	}
 
 	@GET
 	@Path("/age/{j}")
-	@Produces(MediaType.APPLICATION_XML)
 	public String userAge(@PathParam("j") int j) {
 		int age = j;
-		return "<User>" + "<Age>" + age + "</Age>" + "</User>";
+		return String.valueOf(age);
 	}
 }

@@ -10,6 +10,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.carloscardona.ws.rest.model.User;
 
 /**
@@ -17,10 +20,13 @@ import com.carloscardona.ws.rest.model.User;
  * @author candr
  *
  */
-public class UserDao {
+public class UserDAOImpl implements UserDAO {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
 
 	@SuppressWarnings("unchecked")
-	public List<User> getAllUsers() {
+	@Override
+	public List<User> allUsers() {
 		List<User> userList = null;
 		try {
 			File file = new File("Users.dat");
@@ -36,13 +42,17 @@ public class UserDao {
 				ois.close();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Error al consultar los usuarios", e);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.error("Error al consultar los usuarios", e);
 		}
 		return userList;
 	}
 
+	/**
+	 * 
+	 * @param userList
+	 */
 	private void saveUserList(List<User> userList) {
 		try {
 			File file = new File("Users.dat");
@@ -51,9 +61,9 @@ public class UserDao {
 			oos.writeObject(userList);
 			oos.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.error("Error al consultar los usuarios", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Error al consultar los usuarios", e);
 		}
 	}
 }
