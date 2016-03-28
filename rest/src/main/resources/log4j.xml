@@ -10,7 +10,7 @@
 
 	<appender name="restService" class="org.apache.log4j.RollingFileAppender">
 		<param name="File"
-			value="/datos/carloscardonca/ws/rest/current/logs/restServices.log" />
+			value="/datos/carloscardona/ws/rest/current/logs/restServices.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1MB" />
 		<param name="MaxBackupIndex" value="10" />
