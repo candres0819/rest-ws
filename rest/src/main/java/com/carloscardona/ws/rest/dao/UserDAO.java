@@ -6,6 +6,8 @@ import com.carloscardona.ws.rest.model.User;
 
 public interface UserDAO {
 
-	List<User> allUsers();
+	List<User> all();
+
+	void save(User user);
 
 }

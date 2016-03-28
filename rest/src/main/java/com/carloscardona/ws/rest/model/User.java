@@ -54,4 +54,14 @@ public class User implements Serializable {
 	public void setProfession(String profession) {
 		this.profession = profession;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", profession=" + profession + "]";
+	}
 }
