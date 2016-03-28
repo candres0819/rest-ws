@@ -26,13 +26,14 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> allUsers() {
+	public List<User> all() {
 		List<User> userList = null;
+		File file = null;
 		try {
-			File file = new File("Users.dat");
+			file = new File("Users.dat");
 			if (!file.exists()) {
-				User user = new User(1, "Mahesh", "Teacher");
 				userList = new ArrayList<User>();
+				User user = new User(1, "Mahesh", "Teacher");
 				userList.add(user);
 				saveUserList(userList);
 			} else {
@@ -47,6 +48,26 @@ public class UserDAOImpl implements UserDAO {
 			LOGGER.error("Error al consultar los usuarios", e);
 		}
 		return userList;
+	}
+
+	@Override
+	public void save(User user) {
+		File file = null;
+		try {
+			file = new File("Users.dat");
+			if (!file.exists()) {
+				throw new Exception();
+			} else {
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				List<User> userList = (List<User>) ois.readObject();
+				userList.add(user);
+				ois.close();
+				saveUserList(userList);
+			}
+		} catch (Exception e) {
+			LOGGER.error("Error al guardar un usuario", e);
+		}
 	}
 
 	/**
